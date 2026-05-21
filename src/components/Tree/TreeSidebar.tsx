@@ -1,7 +1,7 @@
 // src/components/TreeSidebar.tsx
 
 import { useTreeStore } from "../../store/useTreeStore";
-import { TreeItem } from "./TreeItem";
+import TreeItem from "./TreeItem";
 
 export const TreeSidebar = () => {
     const root = useTreeStore((state) => state.root);

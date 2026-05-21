@@ -8,7 +8,7 @@ export default function Layout() {
             <Navbar />
 
             {/* grow allows this to take all remaining space */}
-            <main className="grow flex flex-col overflow-hidden">
+            <main className="grow flex flex-col overflow-hidden bg-background p-4">
                 <Outlet />
             </main>
 

@@ -1,0 +1,42 @@
+/* 1. External imports first */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* 2. Tailwind import */
+@import "tailwindcss";
+
+/* 3. Theme configuration */
+/* We make it dark theme as default */
+@theme {
+    --font-poppins: "Poppins", sans-serif;
+
+    --color-primary: #3b82f6;
+    --color-primary-hover: #2563eb;
+
+    --color-secondary: #10b981;
+    --color-secondary-hover: #059669;
+
+    --color-folder: #eab308;
+    --color-file: #64748b;
+
+    --color-background: #232323;
+    --color-surface: #2c2c2c;
+
+    --color-danger: #ef4444;
+    --color-danger-hover: #dc2626;
+
+    /* Text Colors - Dynamic for theme */
+    --color-text: #f5f5f5;
+
+    --color-border: #444444;
+
+    /* Static Colors wont change on theme change */
+    --color-static-white: #ffffff;
+    --color-static-black: #000000;
+}
+
+/* 4. Global styles */
+@layer base {
+    body {
+        @apply font-poppins text-gray-900;
+    }
+}

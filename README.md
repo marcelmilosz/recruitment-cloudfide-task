@@ -1,67 +1,74 @@
-FileTree Explorer
-A premium, interactive JSON directory visualization tool designed for developers. This application allows users to upload or paste a JSON directory structure and instantly navigate, search, and analyze their file system in a clean, macOS-inspired interface.
+# FileTree Explorer
 
-🚀 Getting Started
-Clone the repository
+An interactive JSON directory visualizer built for developers. Upload or paste a JSON directory structure and instantly browse, search, and explore your file system in a clean, macOS-inspired interface.
 
-Install dependencies:
+---
 
-Bash
+## Getting Started
+
+Clone the repository, then run:
+
+```bash
 npm install
-Run the development server:
-
-Bash
 npm run dev
-🛠 Tech Stack
-Framework: React 18+ (Vite)
+```
 
-Language: TypeScript (Strict Mode)
+---
 
-Routing: React Router v6
+## Tech Stack
 
-State Management: Zustand (with Persistence middleware)
+| Layer            | Choice                              |
+| ---------------- | ----------------------------------- |
+| Framework        | React 18+ (Vite)                    |
+| Language         | TypeScript (Strict Mode)            |
+| Routing          | React Router v6                     |
+| State Management | Zustand with Persistence middleware |
+| Styling          | Tailwind CSS                        |
+| Icons            | Lucide React                        |
 
-Styling: Tailwind CSS
+---
 
-Icons: Lucide React
+## Architecture
 
-🏗 Architectural Decisions
+### State Management - Zustand + Persist
 
-1. State Management (Zustand + Persist)
-   I chose Zustand over React Context because it provides a cleaner, more performant API for global state. By using the persist middleware, I ensured the file system state survives page refreshes, providing a seamless experience—the user doesn't have to re-upload their JSON if they accidentally refresh the browser.
+Zustand was chosen over React Context for its simpler API and better performance with global state. The `persist` middleware means the file tree survives page refreshes - users don't need to re-upload their JSON if they accidentally reload the tab.
 
-2. "Hydration" Pattern
-   Raw JSON is stateless. I implemented a hydrateTree utility that recursively traverses the input JSON to inject an absolute path into every node ("root/src/index.ts"). This transforms a standard recursive structure into a flat-routing-friendly format, enabling deep-linking to any node via the URL.
+### Hydration Pattern
 
-3. Rendering Strategy
-   Instead of using useEffect for syncing navigation and UI (which often triggers unnecessary re-renders), I utilized a "Render-Phase Update" pattern. By comparing the previous URL path to the current one directly in the render body, I ensured state updates are atomic and instantaneous, complying with React 18's strict concurrent rendering recommendations.
+Raw JSON has no concept of absolute paths. A `hydrateTree` utility recursively walks the input and injects a full path into every node (e.g. `root/src/index.ts`). This turns a nested structure into something URL-friendly, enabling deep links to any file or folder.
 
-4. Centralized Configurations
-   To ensure the codebase is maintainable:
+### Render-Phase Updates
 
-paths.config.ts: All application routes are defined in a single dictionary. This eliminates "magic strings" and prevents routing typos.
+Rather than using `useEffect` to sync navigation state (which can cause unnecessary re-renders), the app compares the previous and current URL path directly during render. This keeps updates atomic and instant, in line with React 18's concurrent rendering model.
 
-styles.config.ts: Design tokens are centralized, ensuring consistent border-radii and animation durations across the entire application.
+### Centralized Configuration
 
-⚠️ Known Limitations
-Memory Limits: The application parses and hydrates the entire JSON structure in memory. While sufficient for internal tooling, extremely large directory trees (thousands of files) might impact the main thread during the initial parse.
+To keep the codebase easy to maintain, two config files act as single sources of truth:
 
-Recursive Search: Search currently iterates over the entire tree. For very deep structures, this could be optimized with a pre-indexed search map.
+- **`paths.config.ts`** - all app routes live here, eliminating hardcoded strings and typos
+- **`styles.config.ts`** - design tokens (border radii, animation durations, etc.) are defined once and shared everywhere
 
-File System Limits: The app does not support file editing or drag-and-drop file system manipulation, as this was outside the requested scope.
+---
 
-🔮 Future Improvements
-If I had more time to dedicate to this project, I would implement:
+## Known Limitations
 
-Virtualization: Use react-window or tanstack-virtual for the TreeSidebar to handle trees with thousands of nodes without DOM overhead.
+**Memory usage** - The entire JSON tree is parsed and hydrated in memory at once. This works fine for internal tooling, but very large trees (thousands of files) may slow down the main thread on initial load.
 
-Breadcrumb Interactivity: Allow users to click segments of the breadcrumb trail to navigate directly to parent folders.
+**Search performance** - Search currently walks the full tree on every query. For deeply nested structures, a pre-built index would be faster.
 
-Drag and Drop: Implement a file-system-like reordering feature using dnd-kit.
+**Read-only** - The app doesn't support editing files or drag-and-drop reorganization, as these were out of scope for the initial version.
 
-Dark/Light Mode: Toggle support using Tailwind's class strategy.
+---
 
-Worker Threads: Move the hydrateTree logic to a Web Worker to keep the UI completely responsive during the initial load of large JSON datasets.
+## Possible Future Improvements
 
-Author
-Marcel Miłosz — Built for the Cloudfide recruitment task.
+- **Drag and drop** - File reordering via `dnd-kit`
+- **Dark / light mode** - Theme toggle using Tailwind's class strategy
+- **Web Worker hydration** - Move `hydrateTree` off the main thread so the UI stays responsive while loading large datasets
+
+---
+
+## Author
+
+**Marcel Miłosz** - Built for the Cloudfide recruitment task.

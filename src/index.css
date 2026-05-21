@@ -1,42 +1,43 @@
-/* 1. External imports first */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
-/* 2. Tailwind import */
 @import "tailwindcss";
 
-/* 3. Theme configuration */
-/* We make it dark theme as default */
 @theme {
     --font-poppins: "Poppins", sans-serif;
 
-    --color-primary: #0ea5e9;
-    --color-primary-hover: #0284c7;
+    /* Primary: A vibrant, modern Violet */
+    --color-primary: #8b5cf6;
+    --color-primary-hover: #7c3aed;
 
-    --color-secondary: #22c55e;
-    --color-secondary-hover: #059669;
+    /* Secondary: A vivid, complementary Blue */
+    --color-secondary: #3b82f6;
+    --color-secondary-hover: #2563eb;
 
-    --color-folder: #eab308;
-    --color-file: #64748b;
+    /* System Icons: Adjusted for perfect contrast against dark violet */
+    --color-folder: #fbbf24; /* Warm Gold - pops beautifully against violet/blue */
+    --color-file: #a5b4fc; /* Soft Indigo - fits the theme instead of boring grey */
 
-    --color-background: #232323;
-    --color-surface: #2c2c2c;
+    /* Backgrounds: Tinted darks (Midnight Violet/Slate) */
+    --color-background: #0a0b10;
+    --color-surface: #14151f;
 
-    --color-danger: #ef4444;
-    --color-danger-hover: #dc2626;
+    /* Danger: A sleek Rose instead of harsh standard red */
+    --color-danger: #f43f5e;
+    --color-danger-hover: #e11d48;
 
-    /* Text Colors - Dynamic for theme */
-    --color-text: #f5f5f5;
+    /* Text: Soft slate-white to prevent halation (eye strain) */
+    --color-text: #f8fafc;
 
-    --color-border: #444444;
+    /* Borders: Subtle, tinted to match the surface */
+    --color-border: #262738;
 
-    /* Static Colors wont change on theme change */
+    /* Static Colors */
     --color-static-white: #ffffff;
     --color-static-black: #000000;
 }
 
-/* 4. Global styles */
 @layer base {
     body {
-        @apply font-poppins text-gray-900;
+        @apply font-poppins text-text bg-background min-h-screen antialiased selection:bg-primary/30 selection:text-primary;
     }
 }

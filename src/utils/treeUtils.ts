@@ -37,3 +37,21 @@ export const calculateTotalSize = (node: FileSystemNode): number => {
     // TypeScript knows: if type is "folder", this is FolderNode
     return node.children.reduce((acc, child) => acc + calculateTotalSize(child), 0);
 };
+
+export const searchNodes = (node: FileSystemNode, query: string): FileSystemNode[] => {
+    let results: FileSystemNode[] = [];
+
+    // Check if current node matches (case-insensitive)
+    if (node.name.toLowerCase().includes(query.toLowerCase())) {
+        results.push(node);
+    }
+
+    // If it's a folder, search all children
+    if (node.type === "folder" && node.children) {
+        for (const child of node.children) {
+            results = [...results, ...searchNodes(child, query)];
+        }
+    }
+
+    return results;
+};

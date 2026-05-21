@@ -7,13 +7,31 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import DataCard from '../components/Tree/DataCard';
 import FolderChildCard from '../components/Tree/FolderChildCard';
 
-export default function NodeDetails() {
+export default function NodeView() {
     const params = useParams();
     const path = params['*'] || "";
-
     const findNode = useTreeStore((state) => state.findNode);
+
+    // 1. DEFAULT VIEW: If the user is on exactly `/tree` with no file selected
+    if (!path) {
+        return (
+            <div className="h-full flex items-center justify-center p-6 text-center">
+                <div className={`flex flex-col items-center justify-center p-12 max-w-md w-full ${stylesConfig.borderRadius.parent} ${stylesConfig.border.default_dashed} bg-surface/30`}>
+                    <div className={`w-16 h-16 flex items-center justify-center bg-primary/10 ${stylesConfig.borderRadius.child} mb-6`}>
+                        <Icon name="MousePointerClick" size={32} className="text-primary" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-text mb-2">Select an item</h2>
+                    <p className="text-text/60">
+                        Choose a file or folder from the sidebar on the left to view its details.
+                    </p>
+                </div>
+            </div>
+        );
+    }
+
     const node = findNode(path);
 
+    // 2. NOT FOUND: If they typed a path that doesn't exist in the JSON
     if (!node) {
         return (
             <div className="h-full flex items-center justify-center text-text/50">
@@ -26,14 +44,19 @@ export default function NodeDetails() {
     }
 
     return (
-        <div className="h-full flex flex-col gap-6">
-            <div className="flex flex-col">
+        // 1. ADDED: overflow-y-auto to the outermost wrapper so the entire view scrolls on mobile
+        <div className="h-full flex flex-col gap-4 md:gap-6 p-4 md:p-8 overflow-y-auto">
+
+            {/* 2. ADDED: shrink-0 so the header never gets squished vertically */}
+            <div className="flex flex-col shrink-0 min-w-0">
                 <Breadcrumbs path={node.path} />
-                <h2 className="text-4xl font-bold text-text">{node.name}</h2>
+                <h2 className="text-2xl md:text-4xl font-bold text-text truncate pb-1">
+                    {node.name}
+                </h2>
             </div>
 
-            {/* Top Grid: Info Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* 3. ADDED: shrink-0 and sm:grid-cols-2 (better tablet/large phone layout) */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
                 <DataCard
                     label="Type"
                     icon="File"
@@ -72,15 +95,15 @@ export default function NodeDetails() {
                 )}
             </div>
 
-            {/* Main Content: Big Icon or Grid */}
-            <div className={`flex-1 ${stylesConfig.border.default} ${stylesConfig.borderRadius.parent} bg-surface p-8 overflow-y-auto`}>
+            {/* 4. REMOVED: overflow-y-auto from here, because the parent handles the scrolling now */}
+            <div className={`flex-1 ${stylesConfig.border.default} ${stylesConfig.borderRadius.parent} bg-surface p-4 md:p-8`}>
                 {node.type === "file" ? (
-                    <div className="flex flex-col items-center justify-center h-full text-center max-w-md mx-auto">
+                    <div className="flex flex-col items-center justify-center h-full text-center max-w-md mx-auto py-10">
                         <Icon
                             name="File"
                             variant="file"
-                            size={128}
-                            className="mb-6 opacity-80"
+                            size={80}
+                            className="mb-6 opacity-80 md:w-32 md:h-32"
                         />
                         <h3 className="text-2xl font-semibold text-text mb-2">
                             {node.name}

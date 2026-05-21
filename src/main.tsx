@@ -5,14 +5,24 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import Home from './pages/Home';
 import Layout from './layout';
+import Tree from './pages/Tree';
+import NodeDetails from './pages/NodeDetails';
 
 // Define the routes
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, // The Layout wraps everything
+    element: <Layout />,
     children: [
-      { index: true, element: <Home /> }, // Home page at "/"
+      { index: true, element: <Home /> },
+      {
+        path: "tree",
+        element: <Tree />,
+        children: [
+          // This renders inside the <Outlet /> in Tree.tsx
+          { path: "*", element: <NodeDetails /> }
+        ]
+      },
     ],
   },
 ]);

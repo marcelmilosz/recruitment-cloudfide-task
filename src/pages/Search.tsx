@@ -4,6 +4,7 @@ import { searchNodes } from "../utils/treeUtils";
 import { stylesConfig } from "../config/styles.config";
 import Icon from "../components/Icon";
 import { formatBytes } from "../utils/treeUtils";
+import { APP_PATHS } from "../config/paths.config";
 
 export default function Search() {
     const [searchParams] = useSearchParams();
@@ -41,21 +42,21 @@ export default function Search() {
 
     return (
         <div className="h-full flex flex-col gap-4 md:gap-6 max-w-4xl mx-auto w-full px-2 sm:px-0">
+            {/* Results Header */}
             <div className="flex flex-col gap-1 md:gap-2 shrink-0">
-                {/* Responsive heading sizes */}
                 <h2 className="text-2xl md:text-3xl font-bold text-text">Search Results</h2>
                 <p className="text-sm md:text-base text-text/60">
                     Showing results for <span className="text-primary font-semibold">"{query}"</span>
                 </p>
             </div>
 
-            {/* Reduce padding in the results list for mobile */}
+            {/* Results List */}
             <div className="flex-1 overflow-y-auto pr-2 flex flex-col gap-2 md:gap-3 pb-6">
                 {results.length > 0 ? (
                     results.map((node) => (
                         <Link
                             key={node.path}
-                            to={`/tree/${node.path}`}
+                            to={APP_PATHS.treeNode(node.path)}
                             className={`group flex items-center gap-3 md:gap-4 p-3 md:p-4 ${stylesConfig.borderRadius.child} ${stylesConfig.border.default} bg-surface hover:bg-background hover:border-primary/50 transition-all ${stylesConfig.animation.default_duration}`}
                         >
                             {/* Icon */}
@@ -86,7 +87,7 @@ export default function Search() {
                         </Link>
                     ))
                 ) : (
-                    /* 2. STATE: BEAUTIFUL NOT FOUND STATE */
+                    /* 2. STATE: NOT FOUND STATE */
                     <div className={`flex flex-col items-center justify-center py-20 px-4 text-center ${stylesConfig.borderRadius.parent} ${stylesConfig.border.default_dashed} bg-surface/50`}>
                         <div className={`w-16 h-16 bg-primary/10 flex items-center justify-center mb-6 ${stylesConfig.borderRadius.child}`}>
                             <Icon name="SearchX" size={32} variant="primary" />

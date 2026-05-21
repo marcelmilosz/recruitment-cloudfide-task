@@ -31,17 +31,18 @@ export default function TreeItem({ node }: { node: FileSystemNode }) {
         setIsOpen(!isOpen);
     };
 
-    // UX Polish: Tinted background for active items feels more premium in Dark Mode than solid colors
     const activeClasses = isActive
         ? "bg-primary/15 text-primary font-medium"
         : "text-text/80 hover:bg-surface hover:text-text";
 
     return (
         <div className="select-none">
-            {/* Row Container: Slightly larger padding (py-1.5) increases clickable area (Fitts's Law) */}
+
+            {/* Row Container */}
             <div className={`flex items-center py-1.5 px-2 my-0.5 transition-colors ${stylesConfig.animation.default_duration} ${stylesConfig.borderRadius.orphan} ${activeClasses}`}>
 
-                {/* Fixed-width icon container ensures text aligns perfectly vertically */}
+
+                {/* Icon Container */}
                 <div className="w-6 shrink-0 flex justify-center items-center">
                     {node.type === "folder" ? (
                         <button
@@ -66,7 +67,7 @@ export default function TreeItem({ node }: { node: FileSystemNode }) {
                     )}
                 </div>
 
-                {/* Main Link: Truncates long names so they don't break the sidebar width */}
+                {/* Main Link */}
                 <Link
                     to={`/tree/${node.path}`}
                     className="flex-1 truncate ml-1 text-sm outline-none"
@@ -76,7 +77,7 @@ export default function TreeItem({ node }: { node: FileSystemNode }) {
                 </Link>
             </div>
 
-            {/* Nested Children: Indented with a subtle vertical guide line for spatial context */}
+            {/* Nested Children */}
             {node.type === "folder" && isOpen && (
                 <div className="ml-3.5 border-l border-border/50 pl-2.5">
                     {node.children.map((child) => (

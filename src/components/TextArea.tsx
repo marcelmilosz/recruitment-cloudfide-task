@@ -9,10 +9,12 @@ type TextAreaProps = {
 export default function TextArea({ value, onChange, placeholder = "Enter text..." }: TextAreaProps) {
     return (
         <div className="relative group">
-            {/* Absolute badge to make it look like an editor */}
+            {/* JSON Badge */}
             <div className="absolute top-0 right-0 px-3 py-1 text-[10px] font-mono text-text/30 uppercase tracking-wider bg-background border-b border-l border-border/50 rounded-bl-md rounded-tr-md z-10">
                 JSON
             </div>
+
+            {/* Textarea */}
             <textarea
                 value={value}
                 onChange={(e) => onChange(e.target.value)}

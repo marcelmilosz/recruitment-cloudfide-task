@@ -7,6 +7,7 @@ import { SectionSpacer } from '../components/Other';
 import { useTreeStore } from '../store/useTreeStore';
 import { stylesConfig } from '../config/styles.config';
 import Icon from '../components/Icon';
+import { APP_PATHS } from '../config/paths.config';
 
 const DEMO_JSON = JSON.stringify({
     "name": "root",
@@ -45,7 +46,7 @@ export default function Home() {
         try {
             const parsed = JSON.parse(jsonInput);
             setRoot(parsed);
-            navigate('/tree');
+            navigate(APP_PATHS.TREE);
         } catch {
             setError("Invalid JSON format. Please check your syntax.");
         }
@@ -57,9 +58,9 @@ export default function Home() {
     }
 
     return (
-        <div className="m-auto w-full max-w-2xl flex flex-col py-8 px-2 sm:px-4">
+        <div className="m-auto w-full max-w-2xl flex flex-col py-4 px-4">
 
-            {/* --- Hero Typography --- */}
+            {/* --- Hero --- */}
             <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs sm:text-sm font-medium">
                     <Icon name="Sparkles" size={14} />
@@ -99,13 +100,13 @@ export default function Home() {
                 {/* --- Action Buttons (Upgraded Layout) --- */}
                 <div className="mt-6 flex flex-col gap-3 border-t border-border/50 pt-6">
 
-                    {/* 1. Primary Action: Always takes full width */}
+                    {/* 1. Primary Action */}
                     <Button onClick={handleSubmit} variant="primary" className="w-full py-3 text-base">
                         <Icon name="Play" size={18} />
                         {root ? "Update & Visualize" : "Visualize Tree"}
                     </Button>
 
-                    {/* 2. Secondary Actions: Split 50/50 below the main button */}
+                    {/* 2. Secondary Actions */}
                     <div className="flex flex-col sm:flex-row items-center gap-3 w-full">
 
                         {/* Left Side: Demo or Clear */}
@@ -123,7 +124,7 @@ export default function Home() {
 
                         {/* Right Side: Return to Explorer (Only shows if data exists) */}
                         {root && (
-                            <Button onClick={() => navigate('/tree')} variant="secondary" className="w-full flex-1">
+                            <Button onClick={() => navigate(APP_PATHS.TREE)} variant="secondary" className="w-full flex-1">
                                 <Icon name="FolderTree" size={16} />
                                 Go to Explorer
                             </Button>

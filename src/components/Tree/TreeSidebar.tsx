@@ -1,8 +1,8 @@
 import { useTreeStore } from "../../store/useTreeStore";
 import TreeItem from "./TreeItem";
 import Icon from "../Icon";
+import { ResetDataButton } from "../ResetDataButton";
 
-// We add an optional onClose prop so the mobile view can shut the drawer
 export const TreeSidebar = ({ onClose }: { onClose?: () => void }) => {
     const root = useTreeStore((state) => state.root);
 
@@ -16,7 +16,6 @@ export const TreeSidebar = ({ onClose }: { onClose?: () => void }) => {
     }
 
     return (
-        // Changed `w-64` to `w-full` so it adapts to the parent
         <div className="w-full h-full bg-background flex flex-col overflow-hidden">
 
             <div className="p-4 border-b border-border/50 shrink-0 flex items-center justify-between">
@@ -37,6 +36,11 @@ export const TreeSidebar = ({ onClose }: { onClose?: () => void }) => {
 
             <div className="flex-1 overflow-y-auto p-2">
                 <TreeItem node={root} />
+            </div>
+
+
+            <div className="p-2 w-full">
+                <ResetDataButton />
             </div>
         </div>
     );

@@ -11,7 +11,6 @@ interface IconProps extends LucideIcons.LucideProps {
 }
 
 // 2. Map variants to Tailwind classes
-// Since you added --color-folder/file in CSS, Tailwind generates text-folder/text-file
 const variantStyles: Record<IconVariant, string> = {
     primary: "text-primary",
     secondary: "text-secondary",

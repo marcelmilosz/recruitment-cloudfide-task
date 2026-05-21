@@ -10,7 +10,7 @@ export default function FolderChildCard({ node }: { node: FileSystemNode }) {
             to={`/tree/${node.path}`}
             className={`group flex flex-col items-center justify-between p-4 h-32 ${stylesConfig.borderRadius.child} ${stylesConfig.border.default} bg-background hover:bg-surface hover:border-primary/50 transition-all ${stylesConfig.animation.default_duration}`}
         >
-            {/* Icon - scales up slightly on hover */}
+            {/* Icon  */}
             <div className={`mt-2 transition-transform ${stylesConfig.animation.default_duration} group-hover:scale-110 group-active:scale-95`}>
                 <Icon
                     name={node.type === "folder" ? "Folder" : "File"}

@@ -9,28 +9,24 @@ import NodeView from './pages/NodeView';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
 import Layout from './layout';
+import { APP_PATHS } from './config/paths.config';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: APP_PATHS.HOME,
     element: <Layout />,
     children: [
       { index: true, element: <Home /> },
-      { path: "search", element: <Search /> },
+      // Remove the leading slash for React Router child paths
+      { path: APP_PATHS.SEARCH.replace('/', ''), element: <Search /> },
       {
-        path: "tree",
+        path: APP_PATHS.TREE.replace('/', ''),
         element: <Tree />,
         children: [
-          // 1. ADD THIS: When the user is at exactly `/tree`, show NodeView 
-          // (This triggers the "Select an item" state in NodeView)
           { index: true, element: <NodeView /> },
-
-          // 2. KEEP THIS: When the user is at `/tree/some/file.txt`, show NodeView
-          // (This triggers the actual file details in NodeView)
           { path: "*", element: <NodeView /> }
         ]
       },
-      // Catch-all 404 page
       { path: "*", element: <NotFound /> }
     ],
   },

@@ -14,7 +14,6 @@ export default function Tree() {
     const [prevPathname, setPrevPathname] = useState(location.pathname);
 
     // 3. Render-phase update: Automatically close the mobile sidebar whenever the URL changes
-    // No useEffect needed! This satisfies the linter and runs significantly faster.
     if (location.pathname !== prevPathname) {
         setPrevPathname(location.pathname);
         setIsSidebarOpen(false);

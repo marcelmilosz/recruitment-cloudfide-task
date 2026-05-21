@@ -40,4 +40,8 @@
     body {
         @apply font-poppins text-text bg-background min-h-screen antialiased selection:bg-primary/30 selection:text-primary;
     }
+
+    * {
+        color-scheme: dark;
+    }
 }

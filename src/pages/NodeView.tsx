@@ -44,10 +44,9 @@ export default function NodeView() {
     }
 
     return (
-        // 1. ADDED: overflow-y-auto to the outermost wrapper so the entire view scrolls on mobile
         <div className="h-full flex flex-col gap-4 md:gap-6 p-4 md:p-8 overflow-y-auto">
 
-            {/* 2. ADDED: shrink-0 so the header never gets squished vertically */}
+            {/* Header */}
             <div className="flex flex-col shrink-0 min-w-0">
                 <Breadcrumbs path={node.path} />
                 <h2 className="text-2xl md:text-4xl font-bold text-text truncate pb-1">
@@ -55,8 +54,8 @@ export default function NodeView() {
                 </h2>
             </div>
 
-            {/* 3. ADDED: shrink-0 and sm:grid-cols-2 (better tablet/large phone layout) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
+            {/* Data Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 shrink-0">
                 <DataCard
                     label="Type"
                     icon="File"
@@ -95,7 +94,8 @@ export default function NodeView() {
                 )}
             </div>
 
-            {/* 4. REMOVED: overflow-y-auto from here, because the parent handles the scrolling now */}
+
+            {/* Content Area */}
             <div className={`flex-1 ${stylesConfig.border.default} ${stylesConfig.borderRadius.parent} bg-surface p-4 md:p-8`}>
                 {node.type === "file" ? (
                     <div className="flex flex-col items-center justify-center h-full text-center max-w-md mx-auto py-10">

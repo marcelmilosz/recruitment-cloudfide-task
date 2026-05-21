@@ -2,6 +2,8 @@
 
 An interactive JSON directory visualizer built for developers. Upload or paste a JSON directory structure and instantly browse, search, and explore your file system in a clean, macOS-inspired interface.
 
+![alt text](FileTree.jpg)
+
 ---
 
 ## Getting Started
